@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pritam Barman — Video Editor</title>
+    <meta name="description"
+        content="Pritam Barman — Video Editor specializing in short-form, long-form, subtitles, motion graphics and audio enhancement.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07080b;
+            --s: #0e1015;
+            --s2: #13161d;
+            --t: #f5f7fb;
+            --m: #969daa;
+            --l: #252a34;
+            --max: 1220px
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--t);
+            font-family: Inter, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .container {
+            width: min(var(--max), 92%);
+            margin: auto
+        }
+
+        nav {
+            height: 78px;
+            border-bottom: 1px solid var(--l);
+            background: #07080bdd;
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 50
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            font: 700 21px "Space Grotesk";
+            letter-spacing: -.06em
+        }
+
+        .logo i {
+            font: 500 11px Inter;
+            color: #747b88;
+            margin-left: 4px
+        }
+
+        .links {
+            display: flex;
+            gap: 28px;
+            color: #aab0bc;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .links a:hover {
+            color: #fff
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #fff;
+            background: #fff;
+            color: #08090d;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: .25s
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .ghost {
+            background: transparent;
+            color: #fff;
+            border-color: #373c48
+        }
+
+        .hero {
+            min-height: calc(100vh - 78px);
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            align-items: center;
+            gap: 65px;
+            padding: 90px 0 75px
+        }
+
+        .badge {
+            display: inline-flex;
+            gap: 8px;
+            border: 1px solid #2c313c;
+            background: #0d0f14;
+            padding: 8px 12px;
+            border-radius: 99px;
+            color: #c1c6d0;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .13em
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: #fff;
+            border-radius: 50%
+        }
+
+        h1 {
+            font: 700 clamp(55px, 7vw, 92px)/.91 "Space Grotesk";
+            letter-spacing: -.075em;
+            margin: 24px 0
+        }
+
+        h1 span {
+            color: #777e8c
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--m);
+            max-width: 650px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 30px
+        }
+
+        .stats {
+            display: flex;
+            gap: 27px;
+            margin-top: 32px;
+            color: #858c99;
+            font-size: 11px
+        }
+
+        .stats strong {
+            display: block;
+            color: #e8ebf0;
+            font-size: 17px
+        }
+
+        .showcase {
+            border: 1px solid #2a2f3a;
+            border-radius: 28px;
+            padding: 10px;
+            background: linear-gradient(145deg, #171a23, #0b0d12);
+            box-shadow: 0 35px 100px #0008
+        }
+
+        .video {
+            aspect-ratio: 16/10;
+            border-radius: 21px;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                linear-gradient(180deg, #00000012 20%, #05060af0 100%),
+                url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=88') center/cover;
+        }
+
+        .video:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 72% 28%, #ffffff20 0 2px, transparent 3px),
+                linear-gradient(135deg, #ffffff08, transparent 48%);
+            z-index: 1;
+            pointer-events: none
+        }
+
+        .video:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 45%, #000d)
+        }
+
+        .reel {
+            position: absolute;
+            z-index: 2;
+            top: 22px;
+            left: 24px;
+            font-size: 10px;
+            letter-spacing: .16em;
+            color: #c7ccd5
+        }
+
+        .play {
+            position: absolute;
+            z-index: 3;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: #fff;
+            color: #000;
+            display: grid;
+            place-items: center;
+            font-size: 20px
+        }
+
+        .vtitle {
+            position: absolute;
+            z-index: 2;
+            left: 25px;
+            bottom: 70px;
+            font: 700 28px "Space Grotesk"
+        }
+
+        .time {
+            position: absolute;
+            z-index: 2;
+            right: 25px;
+            bottom: 28px;
+            color: #b5bbc5;
+            font-size: 11px
+        }
+
+        .timeline {
+            position: absolute;
+            z-index: 2;
+            left: 24px;
+            right: 24px;
+            bottom: 20px;
+            border-top: 1px solid #ffffff35;
+            height: 35px
+        }
+
+        .timeline:before {
+            content: "";
+            display: block;
+            width: 72%;
+            height: 4px;
+            background: #fff;
+            margin-top: 10px;
+            border-radius: 10px
+        }
+
+        section {
+            border-top: 1px solid var(--l);
+            padding: 105px 0
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 40px;
+            margin-bottom: 42px
+        }
+
+        .ey {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .18em;
+            color: #747b89;
+            font-weight: 700
+        }
+
+        h2 {
+            font: 700 clamp(38px, 5vw, 58px)/1 "Space Grotesk";
+            letter-spacing: -.06em;
+            margin-top: 10px
+        }
+
+        .top p {
+            max-width: 460px;
+            color: var(--m);
+            font-size: 14px
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px
+        }
+
+        .service {
+            border: 1px solid var(--l);
+            border-radius: 22px;
+            overflow: hidden;
+            background: var(--s);
+            box-shadow: 0 18px 50px #00000020;
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease
+        }
+
+        .service:hover {
+            transform: translateY(-6px);
+            border-color: #474d59;
+            box-shadow: 0 25px 65px #00000035
+        }
+
+        .service img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            object-position: center;
+            filter: saturate(.82) contrast(1.05);
+            opacity: .9;
+            transition: transform .6s ease, filter .5s ease, opacity .5s ease
+        }
+
+        .service:hover img {
+            filter: saturate(1.12) contrast(1.08);
+            opacity: 1;
+            transform: scale(1.045)
+        }
+
+        .imgbox {
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+            background: #0b0e16
+        }
+
+        .imgbox:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 42%, #07080b66 100%);
+            pointer-events: none
+        }
+
+        .body {
+            padding: 22px 24px
+        }
+
+        .num {
+            font-size: 10px;
+            color: #747b89;
+            letter-spacing: .12em
+        }
+
+        .service h3 {
+            font: 700 24px "Space Grotesk";
+            margin: 7px 0
+        }
+
+        .service p {
+            font-size: 13px;
+            color: var(--m)
+        }
+
+        .service-link {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            border-bottom: 1px solid #555b68
+        }
+
+        .work {
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 18px
+        }
+
+        .card {
+            min-height: 470px;
+            border: 1px solid var(--l);
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            padding: 27px;
+            display: flex;
+            align-items: end;
+            background: #10131a
+        }
+
+        .small {
+            min-height: 226px
+        }
+
+        .stack {
+            display: grid;
+            gap: 18px
+        }
+
+        .bg {
+            position: absolute;
+            inset: -1px;
+            background-size: cover;
+            background-position: center;
+            opacity: .72;
+            filter: saturate(.78) contrast(1.08);
+            transition: transform .6s ease, opacity .5s ease, filter .5s ease
+        }
+
+        .card:hover .bg {
+            transform: scale(1.055);
+            opacity: .76;
+            filter: saturate(1.05) contrast(1.08)
+        }
+
+        .shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 20%, #08090df5 92%)
+        }
+
+        .wc {
+            position: relative;
+            z-index: 2
+        }
+
+        .pill {
+            border: 1px solid #464c59;
+            background: #11141aaa;
+            border-radius: 99px;
+            padding: 6px 10px;
+            font-size: 10px;
+            color: #c6cbd4;
+            letter-spacing: .08em
+        }
+
+        .card h3 {
+            font: 700 30px "Space Grotesk";
+            margin-top: 12px
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #a3a9b5
+        }
+
+        .process {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--l);
+            border: 1px solid var(--l);
+            border-radius: 22px;
+            overflow: hidden
+        }
+
+        .step {
+            background: #0c0e13;
+            padding: 27px 22px;
+            min-height: 215px
+        }
+
+        .step small {
+            color: #717886
+        }
+
+        .step h3 {
+            font: 700 18px "Space Grotesk";
+            margin-top: 60px
+        }
+
+        .step p {
+            font-size: 12px;
+            color: var(--m);
+            margin-top: 5px
+        }
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .tool {
+            border: 1px solid #303541;
+            background: #0d0f14;
+            padding: 13px 17px;
+            border-radius: 99px;
+            color: #c9ced7;
+            font-size: 13px
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 100px
+        }
+
+        .abouttext p {
+            color: var(--m);
+            font-size: 16px;
+            margin-bottom: 18px
+        }
+
+        .contact {
+            text-align: center;
+            padding: 120px 0;
+            scroll-margin-top: 90px
+        }
+
+        .contact h2 {
+            font-size: clamp(45px, 7vw, 82px);
+            max-width: 900px;
+            margin: 14px auto
+        }
+
+        .contact p {
+            color: var(--m);
+            max-width: 590px;
+            margin: 0 auto 28px
+        }
+
+        .contact {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 35%, #151b2d 0, #07080b 55%);
+        }
+
+        .contact:before,
+        .contact:after {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 220px;
+            border: 1px solid #315cff35;
+            border-radius: 50%;
+            filter: blur(.2px);
+            pointer-events: none;
+        }
+
+        .contact:before {
+            left: -250px;
+            bottom: -90px;
+            transform: rotate(18deg);
+            box-shadow: 0 0 30px #315cff15, 0 0 60px #7b4dff10;
+        }
+
+        .contact:after {
+            right: -250px;
+            top: -100px;
+            transform: rotate(-18deg);
+            box-shadow: 0 0 30px #7b4dff15, 0 0 60px #315cff10;
+        }
+
+        .contact .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 34px;
+        }
+
+        .contact-email {
+            min-height: 58px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 24px;
+            border: 1px solid #5564b966;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #101522dd, #0b0e16dd);
+            box-shadow: inset 0 1px #ffffff0d, 0 0 35px #315cff0c;
+            color: #f5f7fb;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .contact-email svg {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 auto;
+        }
+
+        .contact-email:hover {
+            border-color: #697dff;
+            transform: translateY(-2px);
+        }
+
+        .contact-fiverr {
+            min-height: 58px;
+            padding: 0 27px;
+            border-radius: 999px;
+            background: #fff;
+            color: #08090d;
+            border: 1px solid #fff;
+            box-shadow: 0 12px 35px #ffffff12;
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: .25s;
+        }
+
+        .contact-fiverr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 42px #ffffff20;
+        }
+
+        .contact-fiverr .f-mark {
+            width: 24px;
+            height: 24px;
+            border-radius: 7px;
+            display: grid;
+            place-items: center;
+            background: #08090d;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .social {
+            width: 52px;
+            height: 52px;
+            border: 1px solid #343b4d;
+            background: linear-gradient(145deg, #11151e, #0b0d13);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #e8ebf0;
+            transition: .25s;
+            box-shadow: inset 0 1px #ffffff0b, 0 8px 25px #0005;
+        }
+
+        .social svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        .social:hover {
+            transform: translateY(-4px);
+            border-color: #7080ff;
+            background: #151b2c;
+            color: #fff;
+            box-shadow: 0 10px 35px #315cff22;
+        }
+
+        footer {
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--l);
+            padding: 24px 0;
+            color: #747b88;
+            font-size: 12px;
+            background: #050609;
+        }
+
+        footer:before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 280px;
+            height: 1px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, #5e6dff, transparent);
+            box-shadow: 0 0 18px #5e6dff66;
+        }
+
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .foot-brand {
+            color: #d7dbe4;
+            font-weight: 700;
+        }
+
+        .foot-meta {
+            color: #747b88;
+        }
+
+        @media(max-width:620px) {
+            .contact-email {
+                max-width: 100%;
+                font-size: 12px;
+                padding: 0 16px;
+            }
+
+            .contact-actions {
+                gap: 10px;
+            }
+
+            .foot {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media(max-width:950px) {
+
+            .hero,
+            .about,
+            .work {
+                grid-template-columns: 1fr
+            }
+
+            .process {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .links {
+                display: none
+            }
+
+            .top {
+                display: block
+            }
+
+            .top p {
+                margin-top: 15px
+            }
+        }
+
+        @media(max-width:620px) {
+
+            .services,
+            .process {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding-top: 65px
+            }
+
+            .hero {
+                gap: 40px
+            }
+
+            h1 {
+                font-size: 55px
+            }
+
+            .foot {
+                display: block
+            }
+
+            .foot span {
+                display: block;
+                margin: 5px 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="container nav"><a class="logo" href="#">PRITAM.<i>EDIT</i></a>
+            <div class="links"><a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a
+                    href="#about">About</a></div><a class="btn" href="#contact">Hire me</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero container" style="border:0">
+            <div>
+                <div class="badge"><span class="dot"></span> Available for freelance projects</div>
+                <h1>Videos that <span>look sharp.</span><br>Stories that <span>stay.</span></h1>
+                <p>I’m <b style="color:#fff">Pritam Barman</b>, a video editor creating clean, engaging and professional
+                    content through precise editing, subtitles, motion graphics and polished audio.</p>
+                <div class="actions"><a class="btn" href="#work">Explore my work ↓</a><a class="btn ghost"
+                        href="#contact">Let's talk →</a></div>
+                <div class="stats">
+                    <div><strong>Premiere Pro</strong>Editing</div>
+                    <div><strong>After Effects</strong>Motion</div>
+                    <div><strong>RX</strong>Audio</div>
+                </div>
+            </div>
+            <div class="showcase">
+                <div class="video">
+                    <!-- <a class="service" href="https://google.com" target="_blank"> -->
+                    <div class="reel">PRITAM BARMAN / SHOWREEL</div>
+                    <!-- <div class="play">▶</div> -->
+                    <div class="vtitle">2026</div>
+                    <div class="time">00:00 — 01:24</div>
+                    <div class="timeline"></div>
+                    <!-- </a> -->
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="top">
+                    <div>
+                        <div class="ey">Services</div>
+                        <h2>Everything your video needs.</h2>
+                    </div>
+                </div>
+                <div class="services">
+                    <a class="service" href="https://drive.google.com/drive/folders/1BstKrefQFE76VKTHhen9nWJKuBWpRx9G?usp=drive_link, https://drive.google.com/drive/folders/1Zn6z7sFDfb9mNvWvcATk7FvnrtnrUaSL?usp=drive_link" target="_blank">
+                        <div class="imgbox"><img loading="lazy" decoding="async"
+                                src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1400&q=88">
+                        </div>
+                        <div class="body">
+                            <div class="num">CORE</div>
+                            <h3>Video Editing</h3>
+                            <p>Professional cutting, pacing, B-roll, transitions, storytelling and final polish for
+                                long-form and short-form content.</p><span class="service-link">View service →</span>
+                        </div>
+                    </a>
+                    <a class="service" href="https://drive.google.com/drive/folders/1Zn6z7sFDfb9mNvWvcATk7FvnrtnrUaSL?usp=drive_link" target="_blank">
+                        <div class="imgbox"><img loading="lazy" decoding="async"
+                                src="images/TikTok vs Reels vs Shorts Phones.png">
+                        </div>
+                        <div class="body">
+                            <div class="num">SOCIAL</div>
+                            <h3>Short-Form Content</h3>
+                            <p>Fast, engaging Reels, Shorts and social videos with strong hooks, dynamic cuts and
+                                retention-focused pacing.</p><span class="service-link">View service →</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="container">
+                <div class="top">
+                    <div>
+                        <div class="ey">Portfolio</div>
+                        <h2>Selected editing work.</h2>
+                    </div>
+                </div>
+                <div class="work">
+                    <a class="card" href="https://drive.google.com/drive/folders/1BstKrefQFE76VKTHhen9nWJKuBWpRx9G?usp=drive_link, https://drive.google.com/drive/folders/1Zn6z7sFDfb9mNvWvcATk7FvnrtnrUaSL?usp=drive_link" target="_blank">
+                        <div class="bg"
+                            style="background-image:url('https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1600&q=88')">
+                        </div>
+                        <div class="shade"></div>
+                        <div class="wc"><span class="pill">LONG FORM / YOUTUBE</span>
+                            <h3>Story-Driven YouTube Edit</h3>
+                            <p>Editing · B-roll · Subtitles · Audio</p>
+                        </div>
+                    </a>
+                    <div class="stack"><a class="card small" href="https://drive.google.com/drive/folders/1Zn6z7sFDfb9mNvWvcATk7FvnrtnrUaSL?usp=drive_link" target="_blank">
+                            <div class="bg"
+                                style="background-image:url('images/TikTok\ vs\ Reels\ vs\ Shorts\ Phones.png')">
+                            </div>
+                            <div class="shade"></div>
+                            <div class="wc"><span class="pill">SHORT FORM</span>
+                                <h3>High-Retention Reel</h3>
+                                <p>Hook · Captions · Motion</p>
+                            </div>
+                        </a>
+                        <a class="card small" href="https://drive.google.com/drive/folders/1YyYXFEDqQzz4VhOblPwO8QoerLaM6xYT?usp=sharing" target="_blank">
+                            <div class="bg"
+                                style="background-image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1400&q=88')">
+                            </div>
+                            <div class="shade"></div>
+                            <div class="wc"><span class="pill">PROMOTIONAL</span>
+                                <h3>Business Video</h3>
+                                <p>Clean edit · Graphics · Sound</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process">
+            <div class="container">
+                <div class="top">
+                    <div>
+                        <div class="ey">Workflow</div>
+                        <h2>My editing process.</h2>
+                    </div>
+                </div>
+                <div class="process">
+                    <div class="step"><small>01</small>
+                        <h3>Understand</h3>
+                        <p>Goal, audience, reference, footage and instructions.</p>
+                    </div>
+                    <div class="step"><small>02</small>
+                        <h3>Audio First</h3>
+                        <p>Clean the voice and build a strong audio foundation.</p>
+                    </div>
+                    <div class="step"><small>03</small>
+                        <h3>Cut</h3>
+                        <p>Remove dead space and create a natural, engaging rhythm.</p>
+                    </div>
+                    <div class="step"><small>04</small>
+                        <h3>Visual Polish</h3>
+                        <p>Subtitles, B-roll, motion graphics and transitions.</p>
+                    </div>
+                    <div class="step"><small>05</small>
+                        <h3>Deliver</h3>
+                        <p>Quality check, export, client review and revisions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="top">
+                    <div>
+                        <div class="ey">Toolkit</div>
+                        <h2>Tools behind the edits.</h2>
+                    </div>
+                </div>
+                <div class="tools"><span class="tool">Adobe Premiere Pro</span><span class="tool">Adobe After
+                        Effects</span><span class="tool">Adobe Photoshop</span><span class="tool">Adobe
+                        Illustrator</span><span class="tool">iZotope RX</span><span class="tool">Motion
+                        Graphics</span><span class="tool">Subtitle Editing</span><span class="tool">Audio
+                        Enhancement</span></div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container about">
+                <div>
+                    <div class="ey">About</div>
+                    <h2>A creative editor focused on clarity, pace and impact.</h2>
+                </div>
+                <div class="abouttext">
+                    <p>I’m Pritam Barman, a freelance creative working across video editing and visual design. My main
+                        video workflow is built around <b style="color:#fff">Premiere Pro + After Effects</b>, with a
+                        strong focus on clean editing, engaging subtitles, motion graphics and audio quality.</p>
+                    <p>I also work with Photoshop, Illustrator and Figma, giving me a broader visual skill set for
+                        thumbnails, graphics and supporting creative assets.</p>
+                    <p>My goal is simple: take your raw footage and turn it into content that feels professional, clear
+                        and enjoyable to watch.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="ey">Contact</div>
+                <h2>Have footage?<br>Let’s turn it into something great.</h2>
+                <p>Send your footage, video goal, reference and deadline. I’ll review the requirements and get back to
+                    you.</p>
+                <div class="contact-actions">
+                    <a class="contact-email" href="mailto:pritambarman32425@gmail.com" aria-label="Email Pritam Barman">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8" />
+                            <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>pritambarman32425@gmail.com</span>
+                    </a>
+                    <a class="contact-fiverr" href="https://www.fiverr.com/sellers/pritambarman_6/edit" target="_blank" rel="noopener">
+                        <span class="f-mark">Fi</span> View Fiverr <span>→</span>
+                    </a>
+                </div>
+                <div class="socials">
+                    <a class="social" href="https://www.instagram.com/pritam_barman_06/" target="_blank" rel="noopener" title="Instagram"
+                        aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8" />
+                            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8" />
+                            <circle cx="17.4" cy="6.7" r="1" fill="currentColor" />
+                        </svg></a>
+                    <a class="social" href="https://api.whatsapp.com/send?phone=8801871058434" target="_blank" rel="noopener" title="WhatsApp"
+                        aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none">
+                            <path d="M20 11.7a8 8 0 0 1-11.7 7L4 20l1.3-4.1A8 8 0 1 1 20 11.7Z" stroke="currentColor"
+                                stroke-width="1.7" />
+                            <path
+                                d="M8.2 8.5c.2-.4.5-.4.8-.4h.5c.2 0 .4.1.5.4l.6 1.4c.1.2.1.4-.1.6l-.5.6c.6 1.2 1.5 2 2.7 2.6l.6-.5c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.6v.5c0 .3-.1.6-.4.8-.4.2-1 .3-1.5.2-2.1-.5-4.9-3.2-5.6-5.5-.1-.6 0-1.2.3-1.8Z"
+                                fill="currentColor" />
+                        </svg></a>
+                    <a class="social" href="https://www.linkedin.com/in/pritam-barman-6843853a8/" target="_blank" rel="noopener" title="LinkedIn"
+                        aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M5.2 8.2H2.7V21h2.5V8.2ZM4 3A1.5 1.5 0 1 0 4 6a1.5 1.5 0 0 0 0-3ZM8.1 8.2H10.5v1.75h.04c.33-.63 1.16-2.05 3.45-2.05 3.69 0 4.37 2.43 4.37 5.58V21h-2.5v-6.67c0-1.59-.03-3.63-2.21-3.63-2.22 0-2.56 1.73-2.56 3.51V21H8.1V8.2Z" />
+                        </svg></a>
+                    <a class="social" href="https://www.fiverr.com/s/d007xEz" target="_blank" rel="noopener" title="Fiverr"
+                        aria-label="Fiverr"><span style="font-size:12px;font-weight:900">Fi</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container foot"><span class="foot-brand">© 2026 Pritam Barman</span><span class="foot-meta">Video
+                Editor · Graphics Designer · Figma UI/UX</span></div>
+    </footer>
+</body>
+
+</html>
